@@ -90,7 +90,8 @@ export async function getAllPosts(): Promise<Post[]> {
  * Supports slugs like ['category', 'my-post']
  */
 export async function getPostBySlug(slugPath: string[]): Promise<Post | null> {
-    const fullPath = path.join(contentDirectory, ...slugPath) + '.md';
+    const decodedSlugPath = slugPath.map((segment) => decodeURIComponent(segment));
+    const fullPath = path.join(contentDirectory, ...decodedSlugPath) + '.md';
 
     try {
         const fileContents = await fs.readFile(fullPath, 'utf8');

@@ -45,7 +45,7 @@ export default async function PostPage({ params }: PostProps) {
         <article className="prose">
             <Link href="/" style={{ marginBottom: 'var(--space-lg)', display: 'inline-block' }}>← Back to Index</Link>
 
-            <h1>{post.meta.title || post.meta.slug}</h1>
+            <h1>{post.meta.title || decodeURIComponent(post.meta.slug)}</h1>
             {post.meta.date && <p style={{ fontSize: '0.9em', color: 'var(--text-muted)' }}>{post.meta.date}</p>}
 
             <div style={{ marginTop: 'var(--space-xl)' }}>
