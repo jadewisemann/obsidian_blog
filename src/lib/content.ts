@@ -65,12 +65,12 @@ export async function getAllPosts(): Promise<Post[]> {
             const fileContents = await fs.readFile(filePath, 'utf8');
             const { data, content } = matter(fileContents);
 
-            // Calculate relative path for slug (e.g., 'category/post-name.md' -> 'category/post-name')
             const relativePath = path.relative(contentDirectory, filePath);
             const slug = relativePath.replace(/\.md$/, '');
+            const metaDate = data.date instanceof Date ? data.date.toISOString().split('T')[0] : data.date;
 
             return {
-                meta: { ...data, slug } as PostMeta,
+                meta: { ...data, slug, date: metaDate } as PostMeta,
                 content,
             };
         })
@@ -96,9 +96,10 @@ export async function getPostBySlug(slugPath: string[]): Promise<Post | null> {
     try {
         const fileContents = await fs.readFile(fullPath, 'utf8');
         const { data, content } = matter(fileContents);
+        const metaDate = data.date instanceof Date ? data.date.toISOString().split('T')[0] : data.date;
 
         return {
-            meta: { ...data, slug: slugPath.join('/') } as PostMeta,
+            meta: { ...data, slug: slugPath.join('/'), date: metaDate } as PostMeta,
             content,
         };
     } catch (err) {
