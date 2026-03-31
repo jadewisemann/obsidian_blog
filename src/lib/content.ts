@@ -38,6 +38,8 @@ async function getAllFilePaths(dirPath: string): Promise<string[]> {
                     if (entry.name.startsWith('.')) return [];
                     return getAllFilePaths(fullPath);
                 } else if (entry.isFile() && fullPath.endsWith('.md')) {
+                    // Skip system files like _Navigation.md
+                    if (entry.name.startsWith('_')) return [];
                     return [fullPath];
                 }
                 return [];

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Callout } from './Callout';
 import { CodeBlock } from './CodeBlock';
+import { PostCard } from './PostCard';
 
 function extractText(children: React.ReactNode): string {
     if (typeof children === 'string') return children;
@@ -37,5 +38,8 @@ export const MDXComponents = {
 
     pre: (props: any) => {
         return <CodeBlock {...props} />;
+    },
+    PostCard: (props: any) => {
+        return <PostCard {...props} />;
     }
 };

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SidebarNavigation } from "@/components/nav/SidebarNavigation";
 
 export const metadata: Metadata = {
   title: "Obsidian Blog",
@@ -14,9 +15,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="container">
-          {children}
-        </main>
+        <div className="layout">
+          <aside className="sidebar">
+            <SidebarNavigation />
+          </aside>
+          <main className="main-content">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
