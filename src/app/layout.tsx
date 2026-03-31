@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+// KaTeX CSS — required for math rendering (no JS, pure css)
+import "katex/dist/katex.min.css";
 import { SidebarNavigation } from "@/components/nav/SidebarNavigation";
 import { TagPane } from "@/components/nav/TagPane";
 
