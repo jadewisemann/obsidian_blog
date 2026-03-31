@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Callout } from './Callout';
+import { CodeBlock } from './CodeBlock';
 
 function extractText(children: React.ReactNode): string {
     if (typeof children === 'string') return children;
@@ -32,5 +33,9 @@ export const MDXComponents = {
         }
 
         return <blockquote {...props}>{props.children}</blockquote>;
+    },
+
+    pre: (props: any) => {
+        return <CodeBlock {...props} />;
     }
 };

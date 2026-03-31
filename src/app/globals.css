@@ -122,3 +122,14 @@ a:hover {
   background-color: transparent;
   padding: 0;
 }
+
+/* Shiki Overrides for Theme Sync */
+.shiki, .shiki span {
+  background-color: transparent !important; /* Forces inheritance from wrapper */
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki, .shiki span {
+    color: var(--shiki-dark) !important;
+  }
+}
