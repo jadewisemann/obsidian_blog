@@ -87,6 +87,49 @@ export async function getAllPosts(): Promise<Post[]> {
         });
 }
 
+// ─── Tag System ───────────────────────────────────────────────────────────────
+
+export interface TagInfo {
+    tag: string;
+    count: number;
+}
+
+/**
+ * Aggregates all unique tags and their post counts across all content files.
+ */
+export async function getAllTags(): Promise<TagInfo[]> {
+    const posts = await getAllPosts();
+
+    const tagMap = new Map<string, number>();
+
+    for (const post of posts) {
+        const tags: string[] = Array.isArray(post.meta.tags) ? post.meta.tags : [];
+        for (const tag of tags) {
+            const normalized = tag.trim();
+            if (normalized) {
+                tagMap.set(normalized, (tagMap.get(normalized) ?? 0) + 1);
+            }
+        }
+    }
+
+    return Array.from(tagMap.entries())
+        .map(([tag, count]) => ({ tag, count }))
+        .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+}
+
+/**
+ * Returns all posts that contain the given tag in their frontmatter.
+ */
+export async function getPostsByTag(tag: string): Promise<Post[]> {
+    const posts = await getAllPosts();
+    return posts.filter((post) => {
+        const tags: string[] = Array.isArray(post.meta.tags) ? post.meta.tags : [];
+        return tags.some((t) => t.trim() === tag);
+    });
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+
 /**
  * Gets a specific post by slug path segments.
  * Supports slugs like ['category', 'my-post']

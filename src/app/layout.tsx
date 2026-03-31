@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SidebarNavigation } from "@/components/nav/SidebarNavigation";
+import { TagPane } from "@/components/nav/TagPane";
 
 export const metadata: Metadata = {
   title: "Obsidian Blog",
@@ -18,6 +19,7 @@ export default function RootLayout({
         <div className="layout">
           <aside className="sidebar">
             <SidebarNavigation />
+            <TagPane />
           </aside>
           <main className="main-content">
             {children}
